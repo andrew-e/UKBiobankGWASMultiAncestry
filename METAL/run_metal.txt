@@ -1,0 +1,48 @@
+# Define location of METAL
+DEFINE METAL_EXEC="path/to/metal"
+
+# Use standard error-based weighting for meta-analysis
+SCHEME STDERR
+
+# Enable random-effects meta-analysis
+ANALYZE RANDOM
+
+# Apply genomic control correction for each study (default ON)
+GENOMICCONTROL ON
+
+# Disable frequency tracking (removed AVERAGEFREQ and MINMAXFREQ)
+# AVERAGEFREQ ON
+# MINMAXFREQ ON
+
+# Process PLINK-derived GWAS results
+MARKER SNP
+ALLELE A1 A2
+EFFECT BETA
+STDERR SE
+PVALUE P
+WEIGHT N
+PROCESS plink_gwas.txt
+
+# Process BOLT-LMM-derived GWAS results
+MARKER SNP
+ALLELE A1 A2
+EFFECT BETA
+STDERR SE
+PVALUE P
+WEIGHT N
+PROCESS bolt_gwas.txt
+
+# Process GENESIS-derived GWAS results
+MARKER SNP
+ALLELE A1 A2
+EFFECT Beta
+STDERR SE
+PVALUE P
+WEIGHT N
+PROCESS genesis_gwas.txt
+
+# Define output file
+OUTFILE random_meta_analysis_results_ .txt
+
+# Execute the meta-analysis
+ANALYZE RANDOM
