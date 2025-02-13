@@ -7,6 +7,7 @@ import textwrap
 import uuid
 from pathlib import Path
 from functions import read_jobs
+from functions import check_data_size
 
 # Create the parser
 parser = argparse.ArgumentParser(description="QC the data")
@@ -41,6 +42,11 @@ job_cols = [
     "method",
 ]
 
+ancestry_sample_size = {
+    "african": 10000,
+    "aisan": 100,
+}
+
 # logging
 logging.basicConfig(
     format="%(asctime)s %(levelname)-8s %(filename)s:%(lineno)d %(message)s",
@@ -74,6 +80,17 @@ def create_dirs(row):
     except:
         logger.error(f"Can't make output directory: {out_dir}")
         sys.exit()
+
+
+def multi_ancestry_gwas(row):
+    logger.debug(row)
+    logger.debug(row["ancestral_group"])
+    if row["ancestral_group"] == "all":
+        for ancestry, sample_size in ancestry_sample_size.items():
+            check_data_size(row, ancestry=ancestry, sample_size=sample_size)
+            create_gwas_sbatch(row)
+    else:
+        create_gwas_sbatch(row)
 
 
 def create_gwas_sbatch(row):
@@ -161,5 +178,5 @@ if __name__ == "__main__":
     job_df = read_jobs(input_path, user)
     row = job_df.iloc[args.job]
     create_dirs(row)
-    create_gwas_sbatch(row)
+    multi_ancestry_gwas(row)
 
