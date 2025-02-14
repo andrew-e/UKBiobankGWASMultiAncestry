@@ -91,6 +91,14 @@ def read_file(job_df, file_type):
         if row["method"] not in ["bolt", "plink"]:
             logger.error("Method needs to be either bolt or plink")
             sys.exit()
+        # check that ancestral_group is all or european
+        if row["ancestral_group"] not in ["all", "european"]:
+            logger.error("Ancestral group needs to be either all or european")
+            sys.exit()
+        # check that trait_type is continuous or categorical
+        if row["trait_type"] not in ["continuous", "categorical"]:
+            logger.error("Trait type needs to be either continuous or categorical")
+            sys.exit()
     except:
         logger.error(f"Failed to qc file {file_name}")
         sys.exit()

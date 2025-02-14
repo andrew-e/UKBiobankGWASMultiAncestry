@@ -1,0 +1,18 @@
+name: UKBiobankGWAS 
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - r-base=4.2
+  - r-essentials
+  - python=2.7
+  - r-biocmanager
+  - r-dplyr
+  - r-data.table
+  - r-qqman
+  - bioconductor-genesis
+  - bioconductor-seqvartools
+  - bioconductor-snprelate
+  - bioconductor-gdsfmt
+  - bioconductor-gwastools
+
