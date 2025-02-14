@@ -1,5 +1,5 @@
 # Define location of METAL
-DEFINE METAL_EXEC="/user/work/uh21133/p3_hackathon/generic-metal/metal"
+DEFINE METAL_EXEC="/path/to/metal"
 
 # Use standard error-based weighting for meta-analysis
 SCHEME STDERR
